@@ -78,9 +78,41 @@ class SSAVisitor(Visitor):
         return IfExp(test, then, else_)
 
     def visitWhile(self, n):
-        test = self.dispatch(n.test)
+	body_locals = FindLocalsVisitor().preorder(n.body)
+	program_vars = set(version.keys())
+
+	phis = []
+	phi_locals = body_locals & program_vars
+
+	phis_preloop = {}
+	phis_body = {}
+	phis_vars = {}
+
+	#all the pre_loop versions
+	for p in phi_locals:
+		phis_preloop[p] = p + "_" + str(version[p])
+
+	#now increment all of them for the vars of our phis
+	# ie  --> var = phi(_, _)
+	for p in phi_locals:
+		version[p] = version[p] + 1
+		phis_vars[p] = p + "_" + str(version[p])
+			
+	test = self.dispatch(n.test)
+
+	#all the version numbers post-loop
         body = self.dispatch(n.body)
-        return While(test, body, n.else_)
+	for p in phi_locals:
+		phis_body[p] = p + "_" + str(version[p])
+
+
+	for p in phi_locals:
+		var = phis_vars[p]
+		var1 = phis_preloop[p]
+		var2 = phis_body[p]
+		phis = phis + [Phi(var, var1, var2)]
+
+        return While(test, body, n.else_, phis)
 
     #--------------------------------------
 

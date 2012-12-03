@@ -7,12 +7,12 @@ class If(Node):
 		self.else_ = else_
 		self.phis = phis
 
-#class While(Node):
-#	def __init__(self, test, body, else_, phis):
-#		self.test = test
-#		self.body = body
-#		self.else_ = else_
-#		self.phis = phis
+class While(Node):
+	def __init__(self, test, body, else_, phis):
+		self.test = test
+		self.body = body
+		self.else_ = else_
+		self.phis = phis
 
 class Phi(Node):
 	def __init__(self, var, var1, var2):

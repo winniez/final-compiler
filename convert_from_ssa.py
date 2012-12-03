@@ -38,7 +38,23 @@ class RemoveSSAVisitor(Visitor):
     def visitWhile(self, n):
         test = self.dispatch(n.test)
         body = self.dispatch(n.body)
-        return While(test, body, n.else_)
+
+	phi_preloop = []
+	phi_body = []
+
+	for p in n.phis:
+		phi_preloop = phi_preloop + [Assign(nodes=[AssName(p.var, 'OP_ASSIGN')], expr = Name(p.var1))]
+		phi_body = phi_body + [Assign(nodes=[AssName(p.var, 'OP_ASSIGN')], expr = Name(p.var2))]
+
+
+	b = []
+	for node in body.nodes:
+		b = b + [node] 
+
+	body = Stmt(b + phi_body)
+
+
+        return Stmt(phi_preloop + [While(test, body, n.else_, None)])
 
     def visitIfExp(self, n):
         test = self.dispatch(n.test)

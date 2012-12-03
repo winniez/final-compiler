@@ -33,4 +33,4 @@ class ExplicateVisitor2(ExplicateVisitor):
     def visitWhile(self, n):
 	#test, body (Stmt), else_
 	#don't have to worry about else_ case!
-	return While(letify(self.dispatch(n.test),lambda t: gen_is_true(t)),  self.dispatch(n.body) , n.else_)
+	return While(letify(self.dispatch(n.test),lambda t: gen_is_true(t)),  self.dispatch(n.body) , n.else_,n.phis)
