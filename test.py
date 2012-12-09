@@ -1,15 +1,19 @@
-#z = input()
-#x = 1
-#while z != 0:
-#    print x
-#    y = 2
-#    z = z + -1
-#print y
+class C:
+    def __init__(self, a):
+        self.a = a
+class D:
+    def __init__(self, a):
+        self.a = a
 
-def even(x):
-    return True if x == 0 else odd(x + -1)
+x = C(1)
+y = D(2)
 
-def odd(x):
-    return True if x == 1 else even(x + -1)
+def swap(x,y):
+    temp = x
+    x = y
+    y = temp
 
-print even(8)
+swap(x, y)
+
+print x.a
+print y.a

@@ -1,555 +1,45 @@
-str_595:
+str_353:
 .string "__init__"
-str_594:
+str_352:
 .string "__init__"
-str_596:
+str_351:
 .string "__init__"
-str_591:
+str_350:
 .string "__init__"
-str_593:
+str_357:
 .string "__init__"
-str_592:
+str_356:
 .string "__init__"
+str_355:
+.string "__init__"
+str_354:
+.string "__init__"
+str_348:
+.string "a"
+str_349:
+.string "a"
+str_359:
+.string "a"
+str_358:
+.string "a"
 .globl main
-lambda_56:
+lambda_54:
 	pushl %ebp
 	movl %esp, %ebp
-	subl $40, %esp
+	subl $24, %esp
 	pushl %ebx
 	pushl %edx
 	pushl %esi
 	pushl %edi
 	movl 8(%ebp), %ebx
-	movl 12(%ebp), %esi
-	movl $0, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	pushl $0
-	pushl $0
-	pushl %ecx
-	pushl %ebx
-	call get_subscript
-	addl $16, %esp
-	movl %eax, %ebx
-	movl $0, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	movl %esi, %eax
-	andl $3, %eax
-	cmpl $0, %eax
-	sete %al
-	movzbl %al, %eax
-	cmpl $0, %eax
-	je label_497_else
-	movl %esi, %eax
-	sarl $2, %eax
-	sarl $2, %ecx
-	cmpl %eax, %ecx
-	sete %al
-	movzbl %al, %eax
-	sall $2, %eax
-	orl $1, %eax
-	jmp label_498_if_end
-label_497_else:
-	movl %esi, %eax
-	andl $3, %eax
-	cmpl $1, %eax
-	sete %al
-	movzbl %al, %edi
-	cmpl $0, %edi
-	je label_495_else
-	movl %esi, %eax
-	sarl $2, %eax
-	sarl $2, %ecx
-	cmpl %eax, %ecx
-	sete %al
-	movzbl %al, %eax
-	sall $2, %eax
-	orl $1, %eax
-	jmp label_496_if_end
-label_495_else:
-	movl $3, %edi
-	notl %edi
-	andl %esi, %edi
-	movl $3, %edx
-	notl %edx
-	andl %ecx, %edx
-	subl $8, %esp
-	pushl %edx
-	pushl %edi
-	call equal
-	addl $16, %esp
-	sall $2, %eax
-	orl $1, %eax
-label_496_if_end:
-label_498_if_end:
-	movl %eax, %ecx
-	movl %ecx, %eax
-	andl $3, %eax
-	cmpl $3, %eax
-	sete %al
-	movzbl %al, %edi
-	cmpl $0, %edi
-	je label_499_else
-	subl $12, %esp
-	pushl %ecx
-	call is_true
-	addl $16, %esp
-	movl %eax, %ecx
-	jmp label_500_if_end
-label_499_else:
-	sarl $2, %ecx
-	cmpl $0, %ecx
-	setne %al
-	movzbl %al, %ecx
-label_500_if_end:
-	cmpl $0, %ecx
-	je label_533_else
-	movl $1, %eax
-	sall $2, %eax
-	orl $1, %eax
-	jmp label_534_if_end
-label_533_else:
-	pushl $0
-	pushl $0
-	pushl $0
-	pushl %ebx
-	call get_subscript
-	addl $16, %esp
-	movl %eax, %edi
-	subl $12, %esp
-	pushl %edi
-	call is_class
-	addl $16, %esp
-	sall $2, %eax
-	orl $1, %eax
-	movl %eax, %ecx
-	movl %ecx, %eax
-	andl $3, %eax
-	cmpl $3, %eax
-	sete %al
-	movzbl %al, %edx
-	cmpl $0, %edx
-	je label_501_else
-	subl $12, %esp
-	pushl %ecx
-	call is_true
-	addl $16, %esp
-	movl %eax, %ecx
-	jmp label_502_if_end
-label_501_else:
-	sarl $2, %ecx
-	cmpl $0, %ecx
-	setne %al
-	movzbl %al, %ecx
-label_502_if_end:
-	cmpl $0, %ecx
-	je label_531_else
-	subl $12, %esp
-	pushl %edi
-	call create_object
-	addl $16, %esp
-	movl %eax, %ebx
-	orl $3, %ebx
-	movl %ebx, -28(%ebp)
-	subl $8, %esp
-	pushl $str_591
-	pushl %edi
-	call has_attr
-	addl $16, %esp
-	sall $2, %eax
-	orl $1, %eax
-	movl %eax, %ecx
-	movl %ecx, %eax
-	andl $3, %eax
-	cmpl $3, %eax
-	sete %al
-	movzbl %al, %ebx
-	cmpl $0, %ebx
-	je label_503_else
-	subl $12, %esp
-	pushl %ecx
-	call is_true
-	addl $16, %esp
-	movl %eax, %ebx
-	jmp label_504_if_end
-label_503_else:
-	sarl $2, %ecx
-	cmpl $0, %ecx
-	setne %al
-	movzbl %al, %ebx
-label_504_if_end:
-	cmpl $0, %ebx
-	je label_509_else
-	subl $8, %esp
-	pushl $str_592
-	pushl %edi
-	call get_attr
-	addl $16, %esp
-	subl $12, %esp
-	pushl %eax
-	call get_function
-	addl $16, %esp
-	movl %eax, %edi
-	orl $3, %edi
-	subl $12, %esp
-	pushl %edi
-	call get_fun_ptr
-	addl $16, %esp
-	movl %eax, %ebx
-	subl $12, %esp
-	pushl %edi
-	call get_free_vars
-	addl $16, %esp
-	movl %eax, %edi
-	movl $-1, %eax
-	sall $2, %eax
-	orl $0, %eax
-	movl %eax, %ecx
-	movl %esi, %eax
-	andl $3, %eax
-	cmpl $0, %eax
-	sete %al
-	movzbl %al, %edx
-	cmpl $0, %edx
-	je label_507_else
-	sarl $2, %esi
-	sarl $2, %ecx
-	addl %ecx, %esi
-	movl %esi, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	jmp label_508_if_end
-label_507_else:
-	movl %esi, %eax
-	andl $3, %eax
-	cmpl $1, %eax
-	sete %al
-	movzbl %al, %edx
-	cmpl $0, %edx
-	je label_505_else
-	sarl $2, %esi
-	sarl $2, %ecx
-	addl %ecx, %esi
-	sall $2, %esi
-	orl $0, %esi
-	movl %esi, %ecx
-	jmp label_506_if_end
-label_505_else:
-	movl $3, %edx
-	notl %edx
-	andl %esi, %edx
-	movl $3, %esi
-	notl %esi
-	andl %ecx, %esi
-	subl $8, %esp
-	pushl %esi
-	pushl %edx
-	call add
-	addl $16, %esp
-	movl %eax, %ecx
-	orl $3, %ecx
-label_506_if_end:
-label_508_if_end:
+	movl 12(%ebp), %ebx
+	movl 16(%ebp), %ecx
 	subl $4, %esp
 	pushl %ecx
-	pushl -28(%ebp)
-	pushl %edi
-	call *%ebx
-	addl $16, %esp
-	movl -28(%ebp), %eax
-	jmp label_510_if_end
-label_509_else:
-	movl -28(%ebp), %eax
-label_510_if_end:
-	jmp label_532_if_end
-label_531_else:
-	subl $12, %esp
-	pushl %edi
-	call is_bound_method
-	addl $16, %esp
-	sall $2, %eax
-	orl $1, %eax
-	movl %eax, %ecx
-	movl %ecx, %eax
-	andl $3, %eax
-	cmpl $3, %eax
-	sete %al
-	movzbl %al, %edx
-	cmpl $0, %edx
-	je label_511_else
-	subl $12, %esp
-	pushl %ecx
-	call is_true
-	addl $16, %esp
-	movl %eax, %ecx
-	jmp label_512_if_end
-label_511_else:
-	movl %ecx, %eax
-	sarl $2, %eax
-	cmpl $0, %eax
-	setne %al
-	movzbl %al, %ecx
-label_512_if_end:
-	cmpl $0, %ecx
-	je label_529_else
-	subl $12, %esp
-	pushl %edi
-	call get_function
-	addl $16, %esp
-	movl %eax, %ebx
-	orl $3, %ebx
-	subl $12, %esp
+	pushl $str_348
 	pushl %ebx
-	call get_fun_ptr
+	call set_attr
 	addl $16, %esp
-	movl %eax, -28(%ebp)
-	subl $12, %esp
-	pushl %ebx
-	call get_free_vars
-	addl $16, %esp
-	movl %eax, %ebx
-	subl $12, %esp
-	pushl %edi
-	call get_receiver
-	addl $16, %esp
-	movl %eax, -16(%ebp)
-	orl $3, -16(%ebp)
-	movl $-1, %edi
-	sall $2, %edi
-	orl $0, %edi
-	movl %esi, %eax
-	andl $3, %eax
-	cmpl $0, %eax
-	sete %al
-	movzbl %al, %ecx
-	cmpl $0, %ecx
-	je label_515_else
-	sarl $2, %esi
-	sarl $2, %edi
-	addl %edi, %esi
-	sall $2, %esi
-	orl $0, %esi
-	jmp label_516_if_end
-label_515_else:
-	movl %esi, %eax
-	andl $3, %eax
-	cmpl $1, %eax
-	sete %al
-	movzbl %al, %ecx
-	cmpl $0, %ecx
-	je label_513_else
-	sarl $2, %esi
-	sarl $2, %edi
-	addl %edi, %esi
-	sall $2, %esi
-	orl $0, %esi
-	jmp label_514_if_end
-label_513_else:
-	movl $3, %ecx
-	notl %ecx
-	andl %esi, %ecx
-	movl $3, %esi
-	notl %esi
-	andl %edi, %esi
-	subl $8, %esp
-	pushl %esi
-	pushl %ecx
-	call add
-	addl $16, %esp
-	movl %eax, %esi
-	orl $3, %esi
-label_514_if_end:
-label_516_if_end:
-	subl $4, %esp
-	pushl %esi
-	pushl -16(%ebp)
-	pushl %ebx
-	call *-28(%ebp)
-	addl $16, %esp
-	jmp label_530_if_end
-label_529_else:
-	subl $12, %esp
-	pushl %edi
-	call is_unbound_method
-	addl $16, %esp
-	sall $2, %eax
-	orl $1, %eax
-	movl %eax, %edx
-	movl %edx, %eax
-	andl $3, %eax
-	cmpl $3, %eax
-	sete %al
-	movzbl %al, %ecx
-	cmpl $0, %ecx
-	je label_517_else
-	subl $12, %esp
-	pushl %edx
-	call is_true
-	addl $16, %esp
-	movl %eax, %ecx
-	jmp label_518_if_end
-label_517_else:
-	sarl $2, %edx
-	cmpl $0, %edx
-	setne %al
-	movzbl %al, %ecx
-label_518_if_end:
-	cmpl $0, %ecx
-	je label_527_else
-	subl $12, %esp
-	pushl %edi
-	call get_function
-	addl $16, %esp
-	movl %eax, %ebx
-	orl $3, %ebx
-	subl $12, %esp
-	pushl %ebx
-	call get_fun_ptr
-	addl $16, %esp
-	movl %eax, %edi
-	subl $12, %esp
-	pushl %ebx
-	call get_free_vars
-	addl $16, %esp
-	movl %eax, %ebx
-	movl $-1, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	movl %esi, %eax
-	andl $3, %eax
-	cmpl $0, %eax
-	sete %al
-	movzbl %al, %edx
-	cmpl $0, %edx
-	je label_521_else
-	sarl $2, %esi
-	sarl $2, %ecx
-	addl %ecx, %esi
-	movl %esi, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	jmp label_522_if_end
-label_521_else:
-	movl %esi, %eax
-	andl $3, %eax
-	cmpl $1, %eax
-	sete %al
-	movzbl %al, %edx
-	cmpl $0, %edx
-	je label_519_else
-	sarl $2, %esi
-	sarl $2, %ecx
-	addl %ecx, %esi
-	sall $2, %esi
-	orl $0, %esi
-	movl %esi, %ecx
-	jmp label_520_if_end
-label_519_else:
-	movl $3, %edx
-	notl %edx
-	andl %esi, %edx
-	movl $3, %esi
-	notl %esi
-	andl %ecx, %esi
-	subl $8, %esp
-	pushl %esi
-	pushl %edx
-	call add
-	addl $16, %esp
-	movl %eax, %ecx
-	orl $3, %ecx
-label_520_if_end:
-label_522_if_end:
-	subl $8, %esp
-	pushl %ecx
-	pushl %ebx
-	call *%edi
-	addl $16, %esp
-	jmp label_528_if_end
-label_527_else:
-	pushl $0
-	pushl $0
-	pushl $0
-	pushl %ebx
-	call get_subscript
-	addl $16, %esp
-	movl %eax, %ebx
-	subl $12, %esp
-	pushl %ebx
-	call get_fun_ptr
-	addl $16, %esp
-	movl %eax, -28(%ebp)
-	subl $12, %esp
-	pushl %ebx
-	call get_free_vars
-	addl $16, %esp
-	movl %eax, %ebx
-	movl $-1, %edi
-	sall $2, %edi
-	orl $0, %edi
-	movl %esi, %eax
-	andl $3, %eax
-	cmpl $0, %eax
-	sete %al
-	movzbl %al, %ecx
-	cmpl $0, %ecx
-	je label_525_else
-	sarl $2, %esi
-	sarl $2, %edi
-	addl %edi, %esi
-	movl %esi, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	jmp label_526_if_end
-label_525_else:
-	movl %esi, %eax
-	andl $3, %eax
-	cmpl $1, %eax
-	sete %al
-	movzbl %al, %ecx
-	cmpl $0, %ecx
-	je label_523_else
-	sarl $2, %esi
-	sarl $2, %edi
-	addl %edi, %esi
-	movl %esi, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	jmp label_524_if_end
-label_523_else:
-	movl $3, %ecx
-	notl %ecx
-	andl %esi, %ecx
-	movl $3, %esi
-	notl %esi
-	andl %edi, %esi
-	subl $8, %esp
-	pushl %esi
-	pushl %ecx
-	call add
-	addl $16, %esp
-	movl %eax, %ecx
-	orl $3, %ecx
-label_524_if_end:
-label_526_if_end:
-	subl $8, %esp
-	pushl %ecx
-	pushl %ebx
-	call *-28(%ebp)
-	addl $16, %esp
-label_528_if_end:
-label_530_if_end:
-label_532_if_end:
-label_534_if_end:
-	popl %edi
-	popl %esi
-	popl %edx
-	popl %ebx
-
-        movl %eax, %eax
-        leave
-        ret
 	movl $0, %eax
 	sall $2, %eax
 	orl $0, %eax
@@ -563,531 +53,26 @@ label_534_if_end:
         ret
 
 
-lambda_66:
+lambda_57:
 	pushl %ebp
 	movl %esp, %ebp
-	subl $40, %esp
+	subl $24, %esp
 	pushl %ebx
 	pushl %edx
 	pushl %esi
 	pushl %edi
-	movl 8(%ebp), %esi
+	movl 8(%ebp), %ebx
 	movl 12(%ebp), %ebx
-	movl $0, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	pushl $0
-	pushl $0
-	pushl %ecx
-	pushl %esi
-	call get_subscript
-	addl $16, %esp
-	movl %eax, %esi
-	movl $1, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	movl %ebx, %eax
-	andl $3, %eax
-	cmpl $0, %eax
-	sete %al
-	movzbl %al, %eax
-	cmpl $0, %eax
-	je label_537_else
-	movl %ebx, %eax
-	sarl $2, %eax
-	sarl $2, %ecx
-	cmpl %eax, %ecx
-	sete %al
-	movzbl %al, %eax
-	sall $2, %eax
-	orl $1, %eax
-	jmp label_538_if_end
-label_537_else:
-	movl %ebx, %eax
-	andl $3, %eax
-	cmpl $1, %eax
-	sete %al
-	movzbl %al, %edi
-	cmpl $0, %edi
-	je label_535_else
-	movl %ebx, %eax
-	sarl $2, %eax
-	sarl $2, %ecx
-	cmpl %eax, %ecx
-	sete %al
-	movzbl %al, %eax
-	sall $2, %eax
-	orl $1, %eax
-	jmp label_536_if_end
-label_535_else:
-	movl $3, %edi
-	notl %edi
-	andl %ebx, %edi
-	movl $3, %edx
-	notl %edx
-	andl %ecx, %edx
-	subl $8, %esp
-	pushl %edx
-	pushl %edi
-	call equal
-	addl $16, %esp
-	sall $2, %eax
-	orl $1, %eax
-label_536_if_end:
-label_538_if_end:
-	movl %eax, %ecx
-	movl %ecx, %eax
-	andl $3, %eax
-	cmpl $3, %eax
-	sete %al
-	movzbl %al, %edi
-	cmpl $0, %edi
-	je label_539_else
-	subl $12, %esp
-	pushl %ecx
-	call is_true
-	addl $16, %esp
-	movl %eax, %ecx
-	jmp label_540_if_end
-label_539_else:
-	sarl $2, %ecx
-	cmpl $0, %ecx
-	setne %al
-	movzbl %al, %ecx
-label_540_if_end:
-	cmpl $0, %ecx
-	je label_573_else
-	movl $1, %eax
-	sall $2, %eax
-	orl $1, %eax
-	jmp label_574_if_end
-label_573_else:
-	pushl $0
-	pushl $0
-	pushl $0
-	pushl %esi
-	call get_subscript
-	addl $16, %esp
-	movl %eax, %edi
-	subl $12, %esp
-	pushl %edi
-	call is_class
-	addl $16, %esp
-	sall $2, %eax
-	orl $1, %eax
-	movl %eax, %ecx
-	movl %ecx, %eax
-	andl $3, %eax
-	cmpl $3, %eax
-	sete %al
-	movzbl %al, %edx
-	cmpl $0, %edx
-	je label_541_else
-	subl $12, %esp
-	pushl %ecx
-	call is_true
-	addl $16, %esp
-	movl %eax, %ecx
-	jmp label_542_if_end
-label_541_else:
-	movl %ecx, %eax
-	sarl $2, %eax
-	cmpl $0, %eax
-	setne %al
-	movzbl %al, %ecx
-label_542_if_end:
-	cmpl $0, %ecx
-	je label_571_else
-	subl $12, %esp
-	pushl %edi
-	call create_object
-	addl $16, %esp
-	movl %eax, %esi
-	orl $3, %esi
-	subl $8, %esp
-	pushl $str_593
-	pushl %edi
-	call has_attr
-	addl $16, %esp
-	sall $2, %eax
-	orl $1, %eax
-	movl %eax, %ecx
-	movl %ecx, %eax
-	andl $3, %eax
-	cmpl $3, %eax
-	sete %al
-	movzbl %al, %edx
-	cmpl $0, %edx
-	je label_543_else
-	subl $12, %esp
-	pushl %ecx
-	call is_true
-	addl $16, %esp
-	movl %eax, %ecx
-	jmp label_544_if_end
-label_543_else:
-	sarl $2, %ecx
-	cmpl $0, %ecx
-	setne %al
-	movzbl %al, %ecx
-label_544_if_end:
-	cmpl $0, %ecx
-	je label_549_else
-	subl $8, %esp
-	pushl $str_594
-	pushl %edi
-	call get_attr
-	addl $16, %esp
-	subl $12, %esp
-	pushl %eax
-	call get_function
-	addl $16, %esp
-	movl %eax, %ecx
-	orl $3, %ecx
-	movl %ecx, -28(%ebp)
-	subl $12, %esp
-	pushl -28(%ebp)
-	call get_fun_ptr
-	addl $16, %esp
-	movl %eax, %edi
-	subl $12, %esp
-	pushl -28(%ebp)
-	call get_free_vars
-	addl $16, %esp
-	movl %eax, -28(%ebp)
-	movl $-1, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	movl %ebx, %eax
-	andl $3, %eax
-	cmpl $0, %eax
-	sete %al
-	movzbl %al, %edx
-	cmpl $0, %edx
-	je label_547_else
-	sarl $2, %ebx
-	sarl $2, %ecx
-	addl %ecx, %ebx
-	sall $2, %ebx
-	orl $0, %ebx
-	jmp label_548_if_end
-label_547_else:
-	movl %ebx, %eax
-	andl $3, %eax
-	cmpl $1, %eax
-	sete %al
-	movzbl %al, %edx
-	cmpl $0, %edx
-	je label_545_else
-	sarl $2, %ebx
-	sarl $2, %ecx
-	addl %ecx, %ebx
-	sall $2, %ebx
-	orl $0, %ebx
-	jmp label_546_if_end
-label_545_else:
-	movl $3, %edx
-	notl %edx
-	andl %ebx, %edx
-	movl $3, %ebx
-	notl %ebx
-	andl %ecx, %ebx
-	subl $8, %esp
-	pushl %ebx
-	pushl %edx
-	call add
-	addl $16, %esp
-	movl %eax, %ebx
-	orl $3, %ebx
-label_546_if_end:
-label_548_if_end:
+	movl 16(%ebp), %ecx
 	subl $4, %esp
+	pushl %ecx
+	pushl $str_349
 	pushl %ebx
-	pushl %esi
-	pushl -28(%ebp)
-	call *%edi
+	call set_attr
 	addl $16, %esp
-	movl %esi, %eax
-	jmp label_550_if_end
-label_549_else:
-	movl %esi, %eax
-label_550_if_end:
-	jmp label_572_if_end
-label_571_else:
-	subl $12, %esp
-	pushl %edi
-	call is_bound_method
-	addl $16, %esp
+	movl $0, %eax
 	sall $2, %eax
-	orl $1, %eax
-	movl %eax, %ecx
-	movl %ecx, %eax
-	andl $3, %eax
-	cmpl $3, %eax
-	sete %al
-	movzbl %al, %edx
-	cmpl $0, %edx
-	je label_551_else
-	subl $12, %esp
-	pushl %ecx
-	call is_true
-	addl $16, %esp
-	movl %eax, %ecx
-	jmp label_552_if_end
-label_551_else:
-	sarl $2, %ecx
-	cmpl $0, %ecx
-	setne %al
-	movzbl %al, %ecx
-label_552_if_end:
-	cmpl $0, %ecx
-	je label_569_else
-	subl $12, %esp
-	pushl %edi
-	call get_function
-	addl $16, %esp
-	movl %eax, %ecx
-	orl $3, %ecx
-	movl %ecx, %esi
-	subl $12, %esp
-	pushl %esi
-	call get_fun_ptr
-	addl $16, %esp
-	movl %eax, -28(%ebp)
-	subl $12, %esp
-	pushl %esi
-	call get_free_vars
-	addl $16, %esp
-	movl %eax, %esi
-	subl $12, %esp
-	pushl %edi
-	call get_receiver
-	addl $16, %esp
-	movl %eax, -16(%ebp)
-	orl $3, -16(%ebp)
-	movl $-1, %edi
-	sall $2, %edi
-	orl $0, %edi
-	movl %ebx, %eax
-	andl $3, %eax
-	cmpl $0, %eax
-	sete %al
-	movzbl %al, %ecx
-	cmpl $0, %ecx
-	je label_555_else
-	sarl $2, %ebx
-	sarl $2, %edi
-	addl %edi, %ebx
-	sall $2, %ebx
-	orl $0, %ebx
-	jmp label_556_if_end
-label_555_else:
-	movl %ebx, %eax
-	andl $3, %eax
-	cmpl $1, %eax
-	sete %al
-	movzbl %al, %ecx
-	cmpl $0, %ecx
-	je label_553_else
-	sarl $2, %ebx
-	sarl $2, %edi
-	addl %edi, %ebx
-	sall $2, %ebx
-	orl $0, %ebx
-	jmp label_554_if_end
-label_553_else:
-	movl $3, %ecx
-	notl %ecx
-	andl %ebx, %ecx
-	movl $3, %ebx
-	notl %ebx
-	andl %edi, %ebx
-	subl $8, %esp
-	pushl %ebx
-	pushl %ecx
-	call add
-	addl $16, %esp
-	movl %eax, %ebx
-	orl $3, %ebx
-label_554_if_end:
-label_556_if_end:
-	subl $4, %esp
-	pushl %ebx
-	pushl -16(%ebp)
-	pushl %esi
-	call *-28(%ebp)
-	addl $16, %esp
-	jmp label_570_if_end
-label_569_else:
-	subl $12, %esp
-	pushl %edi
-	call is_unbound_method
-	addl $16, %esp
-	movl %eax, %edx
-	sall $2, %edx
-	orl $1, %edx
-	movl %edx, %eax
-	andl $3, %eax
-	cmpl $3, %eax
-	sete %al
-	movzbl %al, %ecx
-	cmpl $0, %ecx
-	je label_557_else
-	subl $12, %esp
-	pushl %edx
-	call is_true
-	addl $16, %esp
-	movl %eax, %ecx
-	jmp label_558_if_end
-label_557_else:
-	sarl $2, %edx
-	cmpl $0, %edx
-	setne %al
-	movzbl %al, %ecx
-label_558_if_end:
-	cmpl $0, %ecx
-	je label_567_else
-	subl $12, %esp
-	pushl %edi
-	call get_function
-	addl $16, %esp
-	movl %eax, %edi
-	orl $3, %edi
-	subl $12, %esp
-	pushl %edi
-	call get_fun_ptr
-	addl $16, %esp
-	movl %eax, %esi
-	subl $12, %esp
-	pushl %edi
-	call get_free_vars
-	addl $16, %esp
-	movl %eax, %edi
-	movl $-1, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	movl %ebx, %eax
-	andl $3, %eax
-	cmpl $0, %eax
-	sete %al
-	movzbl %al, %edx
-	cmpl $0, %edx
-	je label_561_else
-	sarl $2, %ebx
-	sarl $2, %ecx
-	addl %ecx, %ebx
-	sall $2, %ebx
-	orl $0, %ebx
-	jmp label_562_if_end
-label_561_else:
-	movl %ebx, %eax
-	andl $3, %eax
-	cmpl $1, %eax
-	sete %al
-	movzbl %al, %edx
-	cmpl $0, %edx
-	je label_559_else
-	sarl $2, %ebx
-	sarl $2, %ecx
-	addl %ecx, %ebx
-	sall $2, %ebx
-	orl $0, %ebx
-	jmp label_560_if_end
-label_559_else:
-	movl $3, %edx
-	notl %edx
-	andl %ebx, %edx
-	movl $3, %ebx
-	notl %ebx
-	andl %ecx, %ebx
-	subl $8, %esp
-	pushl %ebx
-	pushl %edx
-	call add
-	addl $16, %esp
-	movl %eax, %ebx
-	orl $3, %ebx
-label_560_if_end:
-label_562_if_end:
-	subl $8, %esp
-	pushl %ebx
-	pushl %edi
-	call *%esi
-	addl $16, %esp
-	jmp label_568_if_end
-label_567_else:
-	pushl $0
-	pushl $0
-	pushl $0
-	pushl %esi
-	call get_subscript
-	addl $16, %esp
-	movl %eax, %esi
-	subl $12, %esp
-	pushl %esi
-	call get_fun_ptr
-	addl $16, %esp
-	movl %eax, %edi
-	subl $12, %esp
-	pushl %esi
-	call get_free_vars
-	addl $16, %esp
-	movl %eax, -28(%ebp)
-	movl $-1, %esi
-	sall $2, %esi
-	orl $0, %esi
-	movl %ebx, %eax
-	andl $3, %eax
-	cmpl $0, %eax
-	sete %al
-	movzbl %al, %ecx
-	cmpl $0, %ecx
-	je label_565_else
-	sarl $2, %ebx
-	sarl $2, %esi
-	addl %esi, %ebx
-	sall $2, %ebx
-	orl $0, %ebx
-	jmp label_566_if_end
-label_565_else:
-	movl %ebx, %eax
-	andl $3, %eax
-	cmpl $1, %eax
-	sete %al
-	movzbl %al, %ecx
-	cmpl $0, %ecx
-	je label_563_else
-	sarl $2, %ebx
-	sarl $2, %esi
-	addl %esi, %ebx
-	sall $2, %ebx
-	orl $0, %ebx
-	jmp label_564_if_end
-label_563_else:
-	movl $3, %ecx
-	notl %ecx
-	andl %ebx, %ecx
-	movl $3, %ebx
-	notl %ebx
-	andl %esi, %ebx
-	subl $8, %esp
-	pushl %ebx
-	pushl %ecx
-	call add
-	addl $16, %esp
-	movl %eax, %ebx
-	orl $3, %ebx
-label_564_if_end:
-label_566_if_end:
-	subl $8, %esp
-	pushl %ebx
-	pushl -28(%ebp)
-	call *%edi
-	addl $16, %esp
-label_568_if_end:
-label_570_if_end:
-label_572_if_end:
-label_574_if_end:
+	orl $0, %eax
 	popl %edi
 	popl %esi
 	popl %edx
@@ -1096,6 +81,53 @@ label_574_if_end:
         movl %eax, %eax
         leave
         ret
+
+
+lambda_68:
+	pushl %ebp
+	movl %esp, %ebp
+	subl $40, %esp
+	pushl %ebx
+	pushl %edx
+	pushl %esi
+	pushl %edi
+	movl 8(%ebp), %ebx
+	movl 12(%ebp), %esi
+	movl 16(%ebp), %ebx
+	movl $1, %ecx
+	sall $2, %ecx
+	orl $0, %ecx
+	subl $12, %esp
+	pushl %ecx
+	call create_list
+	addl $16, %esp
+	movl %eax, %edi
+	orl $3, %edi
+	movl $0, %ecx
+	sall $2, %ecx
+	orl $0, %ecx
+	movl $0, %edx
+	sall $2, %edx
+	orl $0, %edx
+	pushl $0
+	pushl %edx
+	pushl %ecx
+	pushl %edi
+	call set_subscript
+	addl $16, %esp
+	movl %eax, %ecx
+	pushl $0
+	pushl %esi
+	pushl $0
+	pushl %edi
+	call set_subscript
+	addl $16, %esp
+	pushl $0
+	pushl $0
+	pushl $0
+	pushl %edi
+	call get_subscript
+	addl $16, %esp
 	movl $0, %eax
 	sall $2, %eax
 	orl $0, %eax
@@ -1117,122 +149,81 @@ main:
 	pushl %edx
 	pushl %esi
 	pushl %edi
-	movl $1, %ebx
-	sall $2, %ebx
-	orl $0, %ebx
-	subl $12, %esp
-	pushl %ebx
-	call create_list
-	addl $16, %esp
-	movl %eax, %esi
-	orl $3, %esi
-	movl $0, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
 	movl $0, %ebx
 	sall $2, %ebx
 	orl $0, %ebx
-	pushl $0
+	subl $12, %esp
 	pushl %ebx
-	pushl %ecx
-	pushl %esi
-	call set_subscript
+	call create_list
 	addl $16, %esp
 	movl %eax, %ebx
-	movl %esi, %ebx
-	movl $1, %ecx
+	orl $3, %ebx
+	subl $12, %esp
+	pushl %ebx
+	call create_class
+	addl $16, %esp
+	movl %eax, %ebx
+	orl $3, %ebx
+	movl $0, %ecx
 	sall $2, %ecx
 	orl $0, %ecx
 	subl $12, %esp
 	pushl %ecx
 	call create_list
+	addl $16, %esp
+	movl %eax, %ecx
+	orl $3, %ecx
+	subl $8, %esp
+	pushl %ecx
+	pushl $lambda_54
+	call create_closure
+	addl $16, %esp
+	movl %eax, %ecx
+	orl $3, %ecx
+	subl $4, %esp
+	pushl %ecx
+	pushl $str_350
+	pushl %ebx
+	call set_attr
+	addl $16, %esp
+	movl $0, %ecx
+	sall $2, %ecx
+	orl $0, %ecx
+	subl $12, %esp
+	pushl %ecx
+	call create_list
+	addl $16, %esp
+	movl %eax, %ecx
+	orl $3, %ecx
+	subl $12, %esp
+	pushl %ecx
+	call create_class
 	addl $16, %esp
 	movl %eax, %esi
 	orl $3, %esi
 	movl $0, %ecx
 	sall $2, %ecx
 	orl $0, %ecx
-	movl $0, %edi
-	sall $2, %edi
-	orl $0, %edi
-	pushl $0
-	pushl %edi
-	pushl %ecx
-	pushl %esi
-	call set_subscript
-	addl $16, %esp
-	movl %eax, %ecx
-	movl $1, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
 	subl $12, %esp
 	pushl %ecx
 	call create_list
 	addl $16, %esp
-	movl %eax, %edi
-	orl $3, %edi
-	movl $0, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	pushl $0
-	pushl %ebx
-	pushl %ecx
-	pushl %edi
-	call set_subscript
-	addl $16, %esp
 	movl %eax, %ecx
+	orl $3, %ecx
 	subl $8, %esp
-	pushl %edi
-	pushl $lambda_56
+	pushl %ecx
+	pushl $lambda_57
 	call create_closure
 	addl $16, %esp
 	movl %eax, %ecx
 	orl $3, %ecx
-	pushl $0
+	subl $4, %esp
 	pushl %ecx
-	pushl $0
+	pushl $str_351
 	pushl %esi
-	call set_subscript
+	call set_attr
 	addl $16, %esp
-	movl $1, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	subl $12, %esp
-	pushl %ecx
-	call create_list
-	addl $16, %esp
-	movl %eax, %edi
-	orl $3, %edi
-	movl $0, %ecx
-	sall $2, %ecx
-	orl $0, %ecx
-	pushl $0
-	pushl %esi
-	pushl %ecx
-	pushl %edi
-	call set_subscript
-	addl $16, %esp
-	movl %eax, %ecx
-	subl $8, %esp
-	pushl %edi
-	pushl $lambda_66
-	call create_closure
-	addl $16, %esp
-	movl %eax, %ecx
-	orl $3, %ecx
-	pushl $0
-	pushl %ecx
-	pushl $0
-	pushl %ebx
-	call set_subscript
-	addl $16, %esp
-	pushl $0
-	pushl $0
-	pushl $0
-	pushl %esi
-	call get_subscript
-	addl $16, %esp
-	movl %eax, %ebx
+	movl %esi, -20(%ebp)
 	subl $12, %esp
 	pushl %ebx
 	call is_class
@@ -1244,23 +235,24 @@ main:
 	andl $3, %eax
 	cmpl $3, %eax
 	sete %al
-	movzbl %al, %edi
-	cmpl $0, %edi
-	je label_575_else
+	movzbl %al, %esi
+	cmpl $0, %esi
+	je label_300_else
 	subl $12, %esp
 	pushl %ecx
 	call is_true
 	addl $16, %esp
 	movl %eax, %ecx
-	jmp label_576_if_end
-label_575_else:
-	sarl $2, %ecx
-	cmpl $0, %ecx
+	jmp label_301_if_end
+label_300_else:
+	movl %ecx, %eax
+	sarl $2, %eax
+	cmpl $0, %eax
 	setne %al
 	movzbl %al, %ecx
-label_576_if_end:
+label_301_if_end:
 	cmpl $0, %ecx
-	je label_589_else
+	je label_314_else
 	subl $12, %esp
 	pushl %ebx
 	call create_object
@@ -1268,36 +260,36 @@ label_576_if_end:
 	movl %eax, %esi
 	orl $3, %esi
 	subl $8, %esp
-	pushl $str_595
+	pushl $str_352
 	pushl %ebx
 	call has_attr
 	addl $16, %esp
+	sall $2, %eax
+	orl $1, %eax
 	movl %eax, %ecx
-	sall $2, %ecx
-	orl $1, %ecx
 	movl %ecx, %eax
 	andl $3, %eax
 	cmpl $3, %eax
 	sete %al
 	movzbl %al, %edi
 	cmpl $0, %edi
-	je label_577_else
+	je label_302_else
 	subl $12, %esp
 	pushl %ecx
 	call is_true
 	addl $16, %esp
 	movl %eax, %ecx
-	jmp label_578_if_end
-label_577_else:
+	jmp label_303_if_end
+label_302_else:
 	sarl $2, %ecx
 	cmpl $0, %ecx
 	setne %al
 	movzbl %al, %ecx
-label_578_if_end:
+label_303_if_end:
 	cmpl $0, %ecx
-	je label_579_else
+	je label_304_else
 	subl $8, %esp
-	pushl $str_596
+	pushl $str_353
 	pushl %ebx
 	call get_attr
 	addl $16, %esp
@@ -1316,7 +308,7 @@ label_578_if_end:
 	pushl %ebx
 	call get_free_vars
 	addl $16, %esp
-	movl $8, %ebx
+	movl $1, %ebx
 	sall $2, %ebx
 	orl $0, %ebx
 	subl $4, %esp
@@ -1325,102 +317,106 @@ label_578_if_end:
 	pushl %eax
 	call *%edi
 	addl $16, %esp
-	movl %esi, %eax
-	jmp label_580_if_end
-label_579_else:
-	movl %esi, %eax
-label_580_if_end:
-	jmp label_590_if_end
-label_589_else:
+	movl %eax, %ebx
+	movl %esi, %ebx
+	jmp label_305_if_end
+label_304_else:
+	movl %esi, %ebx
+label_305_if_end:
+	jmp label_315_if_end
+label_314_else:
 	subl $12, %esp
 	pushl %ebx
 	call is_bound_method
 	addl $16, %esp
 	sall $2, %eax
 	orl $1, %eax
-	movl %eax, %edi
-	movl %edi, %eax
+	movl %eax, %ecx
+	movl %ecx, %eax
 	andl $3, %eax
 	cmpl $3, %eax
 	sete %al
-	movzbl %al, %ecx
-	cmpl $0, %ecx
-	je label_581_else
+	movzbl %al, %esi
+	cmpl $0, %esi
+	je label_306_else
 	subl $12, %esp
-	pushl %edi
+	pushl %ecx
 	call is_true
 	addl $16, %esp
 	movl %eax, %ecx
-	jmp label_582_if_end
-label_581_else:
-	sarl $2, %edi
-	cmpl $0, %edi
+	jmp label_307_if_end
+label_306_else:
+	sarl $2, %ecx
+	cmpl $0, %ecx
 	setne %al
 	movzbl %al, %ecx
-label_582_if_end:
+label_307_if_end:
 	cmpl $0, %ecx
-	je label_587_else
+	je label_312_else
 	subl $12, %esp
 	pushl %ebx
 	call get_function
 	addl $16, %esp
-	movl %eax, %esi
-	orl $3, %esi
+	movl %eax, %ecx
+	orl $3, %ecx
+	movl %ecx, %edi
 	subl $12, %esp
-	pushl %esi
+	pushl %edi
 	call get_fun_ptr
 	addl $16, %esp
-	movl %eax, %edi
+	movl %eax, %esi
 	subl $12, %esp
-	pushl %esi
+	pushl %edi
 	call get_free_vars
 	addl $16, %esp
-	movl %eax, %esi
+	movl %eax, %edi
 	subl $12, %esp
 	pushl %ebx
 	call get_receiver
 	addl $16, %esp
 	movl %eax, %ebx
 	orl $3, %ebx
-	movl $8, %ecx
+	movl $1, %ecx
 	sall $2, %ecx
 	orl $0, %ecx
 	subl $4, %esp
 	pushl %ecx
 	pushl %ebx
-	pushl %esi
-	call *%edi
+	pushl %edi
+	call *%esi
 	addl $16, %esp
-	jmp label_588_if_end
-label_587_else:
+	movl %eax, %ebx
+	jmp label_313_if_end
+label_312_else:
 	subl $12, %esp
 	pushl %ebx
 	call is_unbound_method
 	addl $16, %esp
 	sall $2, %eax
 	orl $1, %eax
-	movl %eax, %edi
-	movl %edi, %eax
+	movl %eax, %esi
+	movl %esi, %eax
 	andl $3, %eax
 	cmpl $3, %eax
 	sete %al
 	movzbl %al, %ecx
 	cmpl $0, %ecx
-	je label_583_else
+	je label_308_else
 	subl $12, %esp
-	pushl %edi
+	pushl %esi
 	call is_true
 	addl $16, %esp
 	movl %eax, %ecx
-	jmp label_584_if_end
-label_583_else:
-	sarl $2, %edi
-	cmpl $0, %edi
+	jmp label_309_if_end
+label_308_else:
+	movl %esi, %eax
+	sarl $2, %eax
+	cmpl $0, %eax
 	setne %al
 	movzbl %al, %ecx
-label_584_if_end:
+label_309_if_end:
 	cmpl $0, %ecx
-	je label_585_else
+	je label_310_else
 	subl $12, %esp
 	pushl %ebx
 	call get_function
@@ -1436,7 +432,7 @@ label_584_if_end:
 	pushl %ebx
 	call get_free_vars
 	addl $16, %esp
-	movl $8, %ebx
+	movl $1, %ebx
 	sall $2, %ebx
 	orl $0, %ebx
 	subl $8, %esp
@@ -1444,35 +440,536 @@ label_584_if_end:
 	pushl %eax
 	call *%esi
 	addl $16, %esp
-	jmp label_586_if_end
-label_585_else:
-	pushl $0
-	pushl $0
-	pushl $0
-	pushl %esi
-	call get_subscript
+	movl %eax, %ebx
+	jmp label_311_if_end
+label_310_else:
+	subl $12, %esp
+	pushl %ebx
+	call get_fun_ptr
 	addl $16, %esp
 	movl %eax, %esi
 	subl $12, %esp
-	pushl %esi
-	call get_fun_ptr
-	addl $16, %esp
-	movl %eax, %ebx
-	subl $12, %esp
-	pushl %esi
+	pushl %ebx
 	call get_free_vars
 	addl $16, %esp
-	movl $8, %ecx
+	movl $1, %ebx
+	sall $2, %ebx
+	orl $0, %ebx
+	subl $8, %esp
+	pushl %ebx
+	pushl %eax
+	call *%esi
+	addl $16, %esp
+	movl %eax, %ebx
+label_311_if_end:
+label_313_if_end:
+label_315_if_end:
+	movl -20(%ebp), %esi
+	subl $12, %esp
+	pushl %esi
+	call is_class
+	addl $16, %esp
+	sall $2, %eax
+	orl $1, %eax
+	movl %eax, %ecx
+	movl %ecx, %eax
+	andl $3, %eax
+	cmpl $3, %eax
+	sete %al
+	movzbl %al, %edi
+	cmpl $0, %edi
+	je label_316_else
+	subl $12, %esp
+	pushl %ecx
+	call is_true
+	addl $16, %esp
+	movl %eax, %ecx
+	jmp label_317_if_end
+label_316_else:
+	sarl $2, %ecx
+	cmpl $0, %ecx
+	setne %al
+	movzbl %al, %ecx
+label_317_if_end:
+	cmpl $0, %ecx
+	je label_330_else
+	subl $12, %esp
+	pushl %esi
+	call create_object
+	addl $16, %esp
+	movl %eax, %edi
+	orl $3, %edi
+	subl $8, %esp
+	pushl $str_354
+	pushl %esi
+	call has_attr
+	addl $16, %esp
+	sall $2, %eax
+	orl $1, %eax
+	movl %eax, %edx
+	movl %edx, %eax
+	andl $3, %eax
+	cmpl $3, %eax
+	sete %al
+	movzbl %al, %ecx
+	cmpl $0, %ecx
+	je label_318_else
+	subl $12, %esp
+	pushl %edx
+	call is_true
+	addl $16, %esp
+	movl %eax, %ecx
+	jmp label_319_if_end
+label_318_else:
+	sarl $2, %edx
+	cmpl $0, %edx
+	setne %al
+	movzbl %al, %ecx
+label_319_if_end:
+	cmpl $0, %ecx
+	je label_320_else
+	subl $8, %esp
+	pushl $str_355
+	pushl %esi
+	call get_attr
+	addl $16, %esp
+	subl $12, %esp
+	pushl %eax
+	call get_function
+	addl $16, %esp
+	movl %eax, %ecx
+	orl $3, %ecx
+	movl %ecx, -20(%ebp)
+	subl $12, %esp
+	pushl -20(%ebp)
+	call get_fun_ptr
+	addl $16, %esp
+	movl %eax, %esi
+	subl $12, %esp
+	pushl -20(%ebp)
+	call get_free_vars
+	addl $16, %esp
+	movl $2, %ecx
+	sall $2, %ecx
+	orl $0, %ecx
+	subl $4, %esp
+	pushl %ecx
+	pushl %edi
+	pushl %eax
+	call *%esi
+	addl $16, %esp
+	movl %eax, %ecx
+	movl %edi, %esi
+	jmp label_321_if_end
+label_320_else:
+	movl %edi, %esi
+label_321_if_end:
+	jmp label_331_if_end
+label_330_else:
+	subl $12, %esp
+	pushl %esi
+	call is_bound_method
+	addl $16, %esp
+	sall $2, %eax
+	orl $1, %eax
+	movl %eax, %ecx
+	movl %ecx, %eax
+	andl $3, %eax
+	cmpl $3, %eax
+	sete %al
+	movzbl %al, %edi
+	cmpl $0, %edi
+	je label_322_else
+	subl $12, %esp
+	pushl %ecx
+	call is_true
+	addl $16, %esp
+	movl %eax, %ecx
+	jmp label_323_if_end
+label_322_else:
+	sarl $2, %ecx
+	cmpl $0, %ecx
+	setne %al
+	movzbl %al, %ecx
+label_323_if_end:
+	cmpl $0, %ecx
+	je label_328_else
+	subl $12, %esp
+	pushl %esi
+	call get_function
+	addl $16, %esp
+	movl %eax, %edi
+	orl $3, %edi
+	subl $12, %esp
+	pushl %edi
+	call get_fun_ptr
+	addl $16, %esp
+	movl %eax, -20(%ebp)
+	subl $12, %esp
+	pushl %edi
+	call get_free_vars
+	addl $16, %esp
+	movl %eax, %edi
+	subl $12, %esp
+	pushl %esi
+	call get_receiver
+	addl $16, %esp
+	movl %eax, %esi
+	orl $3, %esi
+	movl $2, %ecx
+	sall $2, %ecx
+	orl $0, %ecx
+	subl $4, %esp
+	pushl %ecx
+	pushl %esi
+	pushl %edi
+	call *-20(%ebp)
+	addl $16, %esp
+	movl %eax, %ecx
+	jmp label_329_if_end
+label_328_else:
+	subl $12, %esp
+	pushl %esi
+	call is_unbound_method
+	addl $16, %esp
+	sall $2, %eax
+	orl $1, %eax
+	movl %eax, %ecx
+	movl %ecx, %eax
+	andl $3, %eax
+	cmpl $3, %eax
+	sete %al
+	movzbl %al, %edi
+	cmpl $0, %edi
+	je label_324_else
+	subl $12, %esp
+	pushl %ecx
+	call is_true
+	addl $16, %esp
+	movl %eax, %ecx
+	jmp label_325_if_end
+label_324_else:
+	movl %ecx, %eax
+	sarl $2, %eax
+	cmpl $0, %eax
+	setne %al
+	movzbl %al, %ecx
+label_325_if_end:
+	cmpl $0, %ecx
+	je label_326_else
+	subl $12, %esp
+	pushl %esi
+	call get_function
+	addl $16, %esp
+	movl %eax, %edi
+	orl $3, %edi
+	subl $12, %esp
+	pushl %edi
+	call get_fun_ptr
+	addl $16, %esp
+	movl %eax, %esi
+	subl $12, %esp
+	pushl %edi
+	call get_free_vars
+	addl $16, %esp
+	movl $2, %ecx
 	sall $2, %ecx
 	orl $0, %ecx
 	subl $8, %esp
 	pushl %ecx
 	pushl %eax
-	call *%ebx
+	call *%esi
 	addl $16, %esp
-label_586_if_end:
-label_588_if_end:
-label_590_if_end:
+	movl %eax, %ecx
+	jmp label_327_if_end
+label_326_else:
+	subl $12, %esp
+	pushl -20(%ebp)
+	call get_fun_ptr
+	addl $16, %esp
+	movl %eax, %esi
+	subl $12, %esp
+	pushl -20(%ebp)
+	call get_free_vars
+	addl $16, %esp
+	movl $2, %ecx
+	sall $2, %ecx
+	orl $0, %ecx
+	subl $8, %esp
+	pushl %ecx
+	pushl %eax
+	call *%esi
+	addl $16, %esp
+	movl %eax, %ecx
+label_327_if_end:
+label_329_if_end:
+	movl %ecx, %esi
+label_331_if_end:
+	movl $0, %ecx
+	sall $2, %ecx
+	orl $0, %ecx
+	subl $12, %esp
+	pushl %ecx
+	call create_list
+	addl $16, %esp
+	movl %eax, %ecx
+	orl $3, %ecx
+	subl $8, %esp
+	pushl %ecx
+	pushl $lambda_68
+	call create_closure
+	addl $16, %esp
+	movl %eax, %edi
+	orl $3, %edi
+	movl %edi, -16(%ebp)
+	subl $12, %esp
+	pushl -16(%ebp)
+	call is_class
+	addl $16, %esp
+	sall $2, %eax
+	orl $1, %eax
+	movl %eax, %ecx
+	movl %ecx, %eax
+	andl $3, %eax
+	cmpl $3, %eax
+	sete %al
+	movzbl %al, %edx
+	cmpl $0, %edx
+	je label_332_else
+	subl $12, %esp
+	pushl %ecx
+	call is_true
+	addl $16, %esp
+	movl %eax, %ecx
+	jmp label_333_if_end
+label_332_else:
+	sarl $2, %ecx
+	cmpl $0, %ecx
+	setne %al
+	movzbl %al, %ecx
+label_333_if_end:
+	cmpl $0, %ecx
+	je label_346_else
+	subl $12, %esp
+	pushl -16(%ebp)
+	call create_object
+	addl $16, %esp
+	movl %eax, %ecx
+	orl $3, %ecx
+	movl %ecx, -20(%ebp)
+	subl $8, %esp
+	pushl $str_356
+	pushl -16(%ebp)
+	call has_attr
+	addl $16, %esp
+	movl %eax, %ecx
+	sall $2, %ecx
+	orl $1, %ecx
+	movl %ecx, %eax
+	andl $3, %eax
+	cmpl $3, %eax
+	sete %al
+	movzbl %al, %edi
+	cmpl $0, %edi
+	je label_334_else
+	subl $12, %esp
+	pushl %ecx
+	call is_true
+	addl $16, %esp
+	movl %eax, %ecx
+	jmp label_335_if_end
+label_334_else:
+	sarl $2, %ecx
+	cmpl $0, %ecx
+	setne %al
+	movzbl %al, %ecx
+label_335_if_end:
+	cmpl $0, %ecx
+	je label_336_else
+	subl $8, %esp
+	pushl $str_357
+	pushl -16(%ebp)
+	call get_attr
+	addl $16, %esp
+	subl $12, %esp
+	pushl %eax
+	call get_function
+	addl $16, %esp
+	movl %eax, %edi
+	orl $3, %edi
+	subl $12, %esp
+	pushl %edi
+	call get_fun_ptr
+	addl $16, %esp
+	movl %eax, -16(%ebp)
+	subl $12, %esp
+	pushl %edi
+	call get_free_vars
+	addl $16, %esp
+	subl $16, %esp
+	pushl %esi
+	pushl %ebx
+	pushl -20(%ebp)
+	pushl %eax
+	call *-16(%ebp)
+	addl $32, %esp
+	movl %eax, %ecx
+	movl -20(%ebp), %ecx
+	jmp label_337_if_end
+label_336_else:
+	movl -20(%ebp), %ecx
+label_337_if_end:
+	jmp label_347_if_end
+label_346_else:
+	subl $12, %esp
+	pushl -16(%ebp)
+	call is_bound_method
+	addl $16, %esp
+	sall $2, %eax
+	orl $1, %eax
+	movl %eax, %ecx
+	movl %ecx, %eax
+	andl $3, %eax
+	cmpl $3, %eax
+	sete %al
+	movzbl %al, %edx
+	cmpl $0, %edx
+	je label_338_else
+	subl $12, %esp
+	pushl %ecx
+	call is_true
+	addl $16, %esp
+	movl %eax, %ecx
+	jmp label_339_if_end
+label_338_else:
+	sarl $2, %ecx
+	cmpl $0, %ecx
+	setne %al
+	movzbl %al, %ecx
+label_339_if_end:
+	cmpl $0, %ecx
+	je label_344_else
+	subl $12, %esp
+	pushl -16(%ebp)
+	call get_function
+	addl $16, %esp
+	movl %eax, %ecx
+	orl $3, %ecx
+	movl %ecx, -20(%ebp)
+	subl $12, %esp
+	pushl -20(%ebp)
+	call get_fun_ptr
+	addl $16, %esp
+	movl %eax, %edi
+	subl $12, %esp
+	pushl -20(%ebp)
+	call get_free_vars
+	addl $16, %esp
+	movl %eax, -20(%ebp)
+	subl $12, %esp
+	pushl -16(%ebp)
+	call get_receiver
+	addl $16, %esp
+	movl %eax, %ecx
+	orl $3, %ecx
+	subl $16, %esp
+	pushl %esi
+	pushl %ebx
+	pushl %ecx
+	pushl -20(%ebp)
+	call *%edi
+	addl $32, %esp
+	movl %eax, %ecx
+	jmp label_345_if_end
+label_344_else:
+	subl $12, %esp
+	pushl -16(%ebp)
+	call is_unbound_method
+	addl $16, %esp
+	sall $2, %eax
+	orl $1, %eax
+	movl %eax, %ecx
+	movl %ecx, %eax
+	andl $3, %eax
+	cmpl $3, %eax
+	sete %al
+	movzbl %al, %edx
+	cmpl $0, %edx
+	je label_340_else
+	subl $12, %esp
+	pushl %ecx
+	call is_true
+	addl $16, %esp
+	movl %eax, %ecx
+	jmp label_341_if_end
+label_340_else:
+	sarl $2, %ecx
+	cmpl $0, %ecx
+	setne %al
+	movzbl %al, %ecx
+label_341_if_end:
+	cmpl $0, %ecx
+	je label_342_else
+	subl $12, %esp
+	pushl -16(%ebp)
+	call get_function
+	addl $16, %esp
+	movl %eax, %ecx
+	orl $3, %ecx
+	movl %ecx, -20(%ebp)
+	subl $12, %esp
+	pushl -20(%ebp)
+	call get_fun_ptr
+	addl $16, %esp
+	movl %eax, %edi
+	subl $12, %esp
+	pushl -20(%ebp)
+	call get_free_vars
+	addl $16, %esp
+	subl $4, %esp
+	pushl %esi
+	pushl %ebx
+	pushl %eax
+	call *%edi
+	addl $16, %esp
+	movl %eax, %ecx
+	jmp label_343_if_end
+label_342_else:
+	subl $12, %esp
+	pushl %edi
+	call get_fun_ptr
+	addl $16, %esp
+	movl %eax, -20(%ebp)
+	subl $12, %esp
+	pushl %edi
+	call get_free_vars
+	addl $16, %esp
+	subl $4, %esp
+	pushl %esi
+	pushl %ebx
+	pushl %eax
+	call *-20(%ebp)
+	addl $16, %esp
+	movl %eax, %ecx
+label_343_if_end:
+label_345_if_end:
+label_347_if_end:
+	subl $8, %esp
+	pushl $str_358
+	pushl %ebx
+	call get_attr
+	addl $16, %esp
+	pushl $0
+	pushl $0
+	pushl $0
+	pushl %eax
+	call print_any
+	addl $16, %esp
+	subl $8, %esp
+	pushl $str_359
+	pushl %esi
+	call get_attr
+	addl $16, %esp
 	pushl $0
 	pushl $0
 	pushl $0

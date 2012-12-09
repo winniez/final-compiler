@@ -15,17 +15,19 @@ class TypeAnalysisVisitor(Visitor):
 	# types dictionary
         if isinstance(n.nodes[0], AssName):
 		lhs = n.nodes[0].name
-		print lhs
-		input()
 		if isinstance(n.expr, Const):
 			types[lhs] = 'int'
 		elif isinstance(n.expr, List) or isinstance(n.expr, Dict):
 			types[lhs] = 'big'
 		elif isinstance(n.expr, Name) and (n.expr.name == 'False' or n.expr.name == 'True'):
 			types[lhs] = 'bool'
+		elif isinstance(n.expr, Lambda):
+			types[lhs] = 'lambda'
+		elif isinstance(n.expr, Name):
+			types[lhs] = types[n.expr.name]
+		else:
+			types[lhs] = 'bottom'
 	return Assign(nodes=n.nodes, expr = rhs)
-	#else:
-	#	return Assign(nodes=n.nodes, expr = rhs)
 	
 
     def visitName(self, n):
@@ -43,9 +45,14 @@ class TypeAnalysisVisitor(Visitor):
         else_ = self.dispatch(n.else_)
 	
 	for p in n.phis:
-		print 'PHI: ' + str(p)
-		input()
-
+		if types[p.var1] == 'bottom':
+			types[p.var] = types[p.var2]
+		elif types[p.var2] == 'bottom':
+			types[p.var] = types[p.var1]
+		elif types[p.var1] == types[p.var2]:
+			types[p.var] = types[p.var1]
+		else:
+			types[p.var] = 'top'
 
         return If([(test, then)], else_, n.phis)
 
@@ -56,13 +63,24 @@ class TypeAnalysisVisitor(Visitor):
         return IfExp(test, then, else_)
 
     def visitWhile(self, n):
+	#initialize all these to bottom in case they are referenced in the body
+	#not sure if this is correct but its conservative and gets rid of compile errors
+        for p in n.phis:
+		types[p.var] = 'bottom'
+	
 	test = self.dispatch(n.test)
-
         body = self.dispatch(n.body)
 
 	for p in n.phis:
-		print "PHIS: " + p
-		input()
+		if types[p.var1] == 'bottom':
+			types[p.var] = types[p.var2]
+		elif types[p.var2] == 'bottom':
+			types[p.var] = types[p.var1]
+		elif types[p.var1] == types[p.var2]:
+			types[p.var] = types[p.var1]
+		else:
+			types[p.var] = 'top'
+
 
         return While(test, body, n.else_, n.phis)
 
@@ -71,7 +89,16 @@ class TypeAnalysisVisitor(Visitor):
         return (Module(n.doc, self.dispatch(n.node)), types)
 
     def visitLambda(self, n):
-        return Lambda(self.dispatch(n.argnames), n.defaults, n.flags, self.dispatch(n.code))
+	for a in n.argnames:
+		types[a] = 'bottom'
+        return Lambda(n.argnames, n.defaults, n.flags, self.dispatch(n.code))
+
+    def visitFunction(self, n):
+	types[n.name] = 'function'
+	for a in n.argnames:
+		types[a] = 'bottom'
+	return Function(n.decorators, n.name, n.argnames, n.defaults, n.flags, n.doc, self.dispatch(n.code))
+
 
     def visitReturn(self, n):
         return Return(self.dispatch(n.value))

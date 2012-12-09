@@ -23,12 +23,6 @@ class SSAVisitor(Visitor):
 	elif isinstance(n.nodes[0], Subscript):
 		lhs = n.nodes[0]
 		return Assign(nodes=[Subscript(self.dispatch(lhs.expr),'OP_ASSIGN', lhs.subs)] , expr = rhs)
-		#lhs = n.nodes[0].expr.name
-		#if lhs in version.keys():
-		#	version[lhs] = version[lhs] + 1
-		#else:
-		#	version[lhs] = 0
-		#return Assign(nodes=[Subscript(Name(lhs+ "_" + str(version[lhs])), 'OP_ASSIGN', n.nodes[0].subs)], expr = rhs)
 	
 
     def visitName(self, n):
@@ -45,12 +39,6 @@ class SSAVisitor(Visitor):
     #having problems b/c var in let needs to be added to dictionary b4 we process the body
     def visitLet(self, n):
 	version[n.var] = 0
-	#if isinstance(n.rhs, Name):
-	#	if not(n.rhs.name in version.keys()):
-	#		version[n.rhs.name] = 0
-	#	rhs = Name(n.rhs.name + "_" + str(version[n.rhs.name]))
-	#else:
-	#	rhs = self.dispatch(n.rhs)
 	rhs = self.dispatch(n.rhs)
         body = self.dispatch(n.body)
         return Let(n.var + "_" + str(version[n.var]), rhs, body)
@@ -145,8 +133,6 @@ class SSAVisitor(Visitor):
 
     def visitFunction(self, n):
     	if not(n.name in version.keys()):
-        	#version[n.name] = version[n.name] + 1
-        #else:
         	version[n.name] = 0
 	
 	argnames = []
@@ -182,11 +168,6 @@ class SSAVisitor(Visitor):
         return UnarySub(self.dispatch(n.expr))
         
     def visitCallFunc(self, n):
-	#if isinstance(n.node, Name):
-	#	if not(n.node.name in version.keys()):
-	#		version[n.node.name] = 0
-	#	node = Name(n.node.name + "_" + str(version[n.node.name]))
-	#else:
 	node = self.dispatch(n.node)
         return CallFunc(node,
                         [self.dispatch(a) for a in n.args])

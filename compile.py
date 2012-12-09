@@ -85,19 +85,17 @@ try:
 	print 'finished converting to SSA'
 	print ast
 	print 'starting type analysis'
-    #(ast, types) = TypeAnalysisVisitor().preorder(ast)
+    (ast, types) = TypeAnalysisVisitor().preorder(ast)
     if debug:
 	print 'finished type analysis'
 	print ast
-	#print types
+	print types
 	print 'starting to explicate'
-
     ast = ExplicateVisitor2().preorder(ast)
     if debug:
         print 'finished explicating'
         print PrintASTVisitor2().preorder(ast)
         print 'starting to convert from SSA'
-        
     ast = RemoveSSAVisitor().preorder(ast)
     if debug:
 	print 'finished converting from SSA'
