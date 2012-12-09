@@ -2,59 +2,52 @@ from vis import Visitor
 from compiler.ast import *
 from explicit import *
 from compiler_utilities import *
-from find_locals import FindLocalsVisitor
+#from find_locals import FindLocalsVisitor
 from phi import *
 
+types = {}
 
-class RemoveSSAVisitor(Visitor):
-    #need to remove phis from Ifs and Whiles
+class TypeAnalysisVisitor(Visitor):
+
+    def visitAssign(self, n):
+	rhs = self.dispatch(n.expr)
+	# if we see an AssName figure out the type of the right hand side & update the 
+	# types dictionary
+        if isinstance(n.nodes[0], AssName):
+		lhs = n.nodes[0].name
+		print lhs
+		input()
+		if isinstance(n.expr, Const):
+			types[lhs] = 'int'
+		elif isinstance(n.expr, List) or isinstance(n.expr, Dict):
+			types[lhs] = 'big'
+		elif isinstance(n.expr, Name) and (n.expr.name == 'False' or n.expr.name == 'True'):
+			types[lhs] = 'bool'
+	return Assign(nodes=n.nodes, expr = rhs)
+	#else:
+	#	return Assign(nodes=n.nodes, expr = rhs)
 	
+
+    def visitName(self, n):
+	return n
+
+    def visitLet(self, n):
+        rhs = self.dispatch(n.rhs)
+        body = self.dispatch(n.body)
+        return Let(n.var, rhs, body)
+
+
     def visitIf(self, n):
 	test = self.dispatch(n.tests[0][0])
         then = self.dispatch(n.tests[0][1])
         else_ = self.dispatch(n.else_)
-
-	phi_then = []
-	phi_else_ = []
-
+	
 	for p in n.phis:
-		phi_then = phi_then + [Assign(nodes=[AssName(p.var, 'OP_ASSIGN')], expr = Name(p.var1))]
-		phi_else_ = phi_else_ + [Assign(nodes=[AssName(p.var, 'OP_ASSIGN')], expr = Name(p.var2))]
+		print 'PHI: ' + str(p)
+		input()
 
 
-	t = []
-	for node in then.nodes:
-		t = t + [node]
-
-	e = []
-	for node in else_.nodes:
-		e = e + [node] 
-
-	then = Stmt(t + phi_then)
-	else_ = Stmt(e + phi_else_)
-
-        return If([(test, then)], else_, None)
-
-    def visitWhile(self, n):
-        test = self.dispatch(n.test)
-        body = self.dispatch(n.body)
-
-	phi_preloop = []
-	phi_body = []
-
-	for p in n.phis:
-		phi_preloop = phi_preloop + [Assign(nodes=[AssName(p.var, 'OP_ASSIGN')], expr = Name(p.var1))]
-		phi_body = phi_body + [Assign(nodes=[AssName(p.var, 'OP_ASSIGN')], expr = Name(p.var2))]
-
-
-	b = []
-	for node in body.nodes:
-		b = b + [node] 
-
-	body = Stmt(b + phi_body)
-
-
-        return Stmt(phi_preloop + [While(test, body, n.else_, None)])
+        return If([(test, then)], else_, n.phis)
 
     def visitIfExp(self, n):
         test = self.dispatch(n.test)
@@ -62,24 +55,23 @@ class RemoveSSAVisitor(Visitor):
         else_ = self.dispatch(n.else_)
         return IfExp(test, then, else_)
 
+    def visitWhile(self, n):
+	test = self.dispatch(n.test)
 
-    def visitName(self, n):
-	return n
+        body = self.dispatch(n.body)
 
-    def visitLet(self, n): 
-        return Let(n.var, self.dispatch(n.rhs), self.dispatch(n.body))
+	for p in n.phis:
+		print "PHIS: " + p
+		input()
 
-    def visitAssign(self, n):
-    	return Assign(nodes=n.nodes, expr = self.dispatch(n.expr))
+        return While(test, body, n.else_, n.phis)
+
 
     def visitModule(self, n):
-        return Module(n.doc, self.dispatch(n.node))
+        return (Module(n.doc, self.dispatch(n.node)), types)
 
     def visitLambda(self, n):
-	argnames = []
-	for a in n.argnames:
-		argnames = argnames + [self.dispatch(a)]
-        return Lambda(argnames, n.defaults, n.flags, self.dispatch(n.code))
+        return Lambda(self.dispatch(n.argnames), n.defaults, n.flags, self.dispatch(n.code))
 
     def visitReturn(self, n):
         return Return(self.dispatch(n.value))
@@ -94,9 +86,6 @@ class RemoveSSAVisitor(Visitor):
 
     def visitConst(self, n):
         return n
-
-    def visitstr(self, n):
-	return n
 
     def visitAdd(self, n):
         left = self.dispatch(n.left)

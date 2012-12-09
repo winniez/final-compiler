@@ -21,6 +21,7 @@ from uniquify import UniquifyVisitor
 from declassify import declassify
 from convert_to_ssa import SSAVisitor
 from convert_from_ssa import RemoveSSAVisitor
+from type_analysis import TypeAnalysisVisitor
 from generate_x86_3 import string_constants #need this to put strings at top of file!
 from os.path import splitext
 
@@ -55,7 +56,7 @@ from os.path import splitext
 #-call funs should be interpreted correctly now...copied psuedo code from pdf!
 
 
-debug = False
+debug = True
 
 try:
 #    pdb.set_trace()
@@ -64,6 +65,7 @@ try:
     if debug:
         print 'finished parsing'
         print ast
+	print 'starting to declassify'
 
     ast = declassify(ast, None, None, set([]))
     if debug:
@@ -75,20 +77,33 @@ try:
     if debug:
         print 'finished uniquifying'
         print ast
+	print 'starting to convert to SSA'
 
 
     ast = SSAVisitor().preorder(ast)
-    #print PrintASTVisitor2().preorder(ast)
-    #input()
+    if debug:
+	print 'finished converting to SSA'
+	print ast
+	print 'starting type analysis'
+    #(ast, types) = TypeAnalysisVisitor().preorder(ast)
+    if debug:
+	print 'finished type analysis'
+	print ast
+	#print types
+	print 'starting to explicate'
 
     ast = ExplicateVisitor2().preorder(ast)
     if debug:
         print 'finished explicating'
         print PrintASTVisitor2().preorder(ast)
-        print 'starting to heapify'
+        print 'starting to convert from SSA'
         
-
     ast = RemoveSSAVisitor().preorder(ast)
+    if debug:
+	print 'finished converting from SSA'
+	print PrintASTVisitor2().preorder(ast)
+	print 'starting to heapify'
+
 
     FreeInFunVisitor().preorder(ast)
     ast = HeapifyVisitor().preorder(ast)

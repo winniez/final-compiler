@@ -15,27 +15,43 @@ class SSAVisitor(Visitor):
 	rhs = self.dispatch(n.expr)
         if isinstance(n.nodes[0], AssName):
 		lhs = n.nodes[0].name
-
 		if lhs in version.keys():
 			version[lhs] = version[lhs] + 1
 		else:
 			version[lhs] = 0
 		return Assign(nodes=[AssName(lhs + "_" + str(version[lhs]), 'OP_ASSIGN')], expr = rhs)
-	else:
-		return Assign(nodes=n.nodes, expr = rhs)
+	elif isinstance(n.nodes[0], Subscript):
+		lhs = n.nodes[0]
+		return Assign(nodes=[Subscript(self.dispatch(lhs.expr),'OP_ASSIGN', lhs.subs)] , expr = rhs)
+		#lhs = n.nodes[0].expr.name
+		#if lhs in version.keys():
+		#	version[lhs] = version[lhs] + 1
+		#else:
+		#	version[lhs] = 0
+		#return Assign(nodes=[Subscript(Name(lhs+ "_" + str(version[lhs])), 'OP_ASSIGN', n.nodes[0].subs)], expr = rhs)
 	
 
     def visitName(self, n):
-	if n.name in builtin_functions:
+	if (n.name in builtin_functions) or (n.name == 'False') or (n.name == 'True'):
 		return n
 	else:
+		if n.name in version.keys():
 		# replace name nodes with the correct version number
-        	return Name(n.name + '_' + str(version[n.name]))
+        		return Name(n.name + '_' + str(version[n.name]))
+		else:
+			version[n.name] = 0
+			return Name(n.name + '_' + str(version[n.name]))
 
     #having problems b/c var in let needs to be added to dictionary b4 we process the body
     def visitLet(self, n):
 	version[n.var] = 0
-        rhs = self.dispatch(n.rhs)
+	#if isinstance(n.rhs, Name):
+	#	if not(n.rhs.name in version.keys()):
+	#		version[n.rhs.name] = 0
+	#	rhs = Name(n.rhs.name + "_" + str(version[n.rhs.name]))
+	#else:
+	#	rhs = self.dispatch(n.rhs)
+	rhs = self.dispatch(n.rhs)
         body = self.dispatch(n.body)
         return Let(n.var + "_" + str(version[n.var]), rhs, body)
 
@@ -120,7 +136,28 @@ class SSAVisitor(Visitor):
         return Module(n.doc, self.dispatch(n.node))
 
     def visitLambda(self, n):
-        return Lambda(self.dispatch(n.argnames), n.defaults, n.flags, self.dispatch(n.code))
+	argnames = []
+	for a in n.argnames:
+		version[a] = 0
+		argnames = argnames + [a + '_' + str(version[a])]
+        return Lambda(argnames, n.defaults, n.flags, self.dispatch(n.code))
+
+
+    def visitFunction(self, n):
+    	if not(n.name in version.keys()):
+        	#version[n.name] = version[n.name] + 1
+        #else:
+        	version[n.name] = 0
+	
+	argnames = []
+	for a in n.argnames:
+		version[a] = 0
+		argnames = argnames + [a + '_' + str(version[a])]
+
+	code = self.dispatch(n.code)
+
+	return Function(n.decorators, n.name + '_' + str(version[n.name]), argnames, n.defaults, n.flags, n.doc, code)
+
 
     def visitReturn(self, n):
         return Return(self.dispatch(n.value))
@@ -145,7 +182,13 @@ class SSAVisitor(Visitor):
         return UnarySub(self.dispatch(n.expr))
         
     def visitCallFunc(self, n):
-        return CallFunc(self.dispatch(n.node),
+	#if isinstance(n.node, Name):
+	#	if not(n.node.name in version.keys()):
+	#		version[n.node.name] = 0
+	#	node = Name(n.node.name + "_" + str(version[n.node.name]))
+	#else:
+	node = self.dispatch(n.node)
+        return CallFunc(node,
                         [self.dispatch(a) for a in n.args])
 
     def visitCompare(self, n):
