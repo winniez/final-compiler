@@ -6,6 +6,15 @@ from find_locals import FindLocalsVisitor
 from compiler_utilities import generate_name, builtin_functions
 
 
+def collapseStmts(n):
+	if isinstance(n, Stmt):
+		ss = []
+		for s in n.nodes:
+			ss = ss + collapseStmts(s)
+		return ss
+	else:
+		return [n]
+
 def declassify(n, class_name, class_attributes, local_variables):
 	if isinstance(n, Module):
 		local_in_module = FindLocalsVisitor().preorder(n.node)
@@ -14,11 +23,7 @@ def declassify(n, class_name, class_attributes, local_variables):
 		ss = []
 		for s in n.nodes:
 			d_s = declassify(s, class_name, class_attributes, local_variables)
-			if isinstance(d_s, Stmt):
-				for d_ss in d_s.nodes:
-					ss = ss + [d_ss]
-			else:
-				ss = ss + [d_s]
+			ss = ss + collapseStmts(d_s)
 		#ss = [declassify(s, class_name, class_attributes, local_variables) for s in n.nodes]
 		return Stmt(ss)
 	elif isinstance(n, Const):
