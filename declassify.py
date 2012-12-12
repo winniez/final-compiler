@@ -11,7 +11,15 @@ def declassify(n, class_name, class_attributes, local_variables):
 		local_in_module = FindLocalsVisitor().preorder(n.node)
 		return Module(n.doc, declassify(n.node, class_name, class_attributes, local_in_module))
 	elif isinstance(n, Stmt):
-		ss = [declassify(s, class_name, class_attributes, local_variables) for s in n.nodes]
+		ss = []
+		for s in n.nodes:
+			d_s = declassify(s, class_name, class_attributes, local_variables)
+			if isinstance(d_s, Stmt):
+				for d_ss in d_s.nodes:
+					ss = ss + [d_ss]
+			else:
+				ss = ss + [d_s]
+		#ss = [declassify(s, class_name, class_attributes, local_variables) for s in n.nodes]
 		return Stmt(ss)
 	elif isinstance(n, Const):
 		return n

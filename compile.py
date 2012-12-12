@@ -72,7 +72,6 @@ try:
 	print 'finished declassifying'
 	print ast
 	print 'starting to uniquify'
-
     ast = UniquifyVisitor().preorder(ast)
     if debug:
         print 'finished uniquifying'
