@@ -2,6 +2,7 @@ from explicit import *
 from vis import Visitor
 from compiler_utilities import *
 from phi import *
+from type_analysis import types
 
 # Make explicit the dynamic operations of Python
 
@@ -12,9 +13,21 @@ from phi import *
 # if you try to get sneaky and ditch the compare in the else branch,
 # the type checker will complain. -Jeremy
 def gen_is_true(e):
+
+# type specialization!!!
+    if e.name in types.keys():
+	t = types[e.name]
+    	if t == 'int' or t == 'bool':
+		return Compare(Const(0), [('!=', ProjectTo('int', e))])
+    	elif t == 'big':
+		return CallFunc(Name('is_true'), [e])
+# type specialization!!!	
+
     return IfExp(Compare(GetTag(e), [('==', Const(tag['big']))]),
                  CallFunc(Name('is_true'), [e]),
                  Compare(Const(0), [('!=', ProjectTo('int', e))]))
+
+
 
 # the following is overly conservative
 def pure(expr):
@@ -72,6 +85,41 @@ class ExplicateVisitor(Visitor):
     def visitAdd(self, n):
         left = self.dispatch(n.left)
         right = self.dispatch(n.right)
+
+#TYPE SPECIALIZATION CODE!!!!!!!!!!!!!!!!!!!
+	if isinstance(left, Name) and left.name != 'False' and left.name != 'True':
+		typ = types[left.name]
+		if typ == 'int' or typ == 'bool':
+			def result(l, r):
+				return InjectFrom('int', Add((ProjectTo('int', l), ProjectTo('int', r))))
+			return letify(left, lambda l: letify(right, lambda r: result(l, r)))
+		elif typ == 'big':
+			def result(l, r): 
+				return InjectFrom('big', CallFunc(Name('add'), [ProjectTo('big', l, ProjectTo('big', r))]))
+			return letify(left, lambda l: letify(right, lambda r: result(l, r)))
+	elif isinstance(right, Name) and right.name != 'False' and right.name != 'True':
+		typ = types[right.name]
+		if typ == 'int' or typ == 'bool':
+			def result(l, r):
+				return InjectFrom('int', Add((ProjectTo('int', l), ProjectTo('int', r))))
+			return letify(left, lambda l: letify(right, lambda r: result(l, r)))
+		elif typ == 'big':
+			def result(l, r):
+				return InjectFrom('big', CallFunc(Name('add'), [ProjectTo('big', l, ProjectTo('big', r))]))
+			return letify(left, lambda l: letify(right, lambda r: result(l, r)))
+	elif isinstance(left, Const) or isinstance(left, Name) or isinstance( right, Const) or isinstance(right, Name): #ints and True/False
+		def result(l, r):
+			return InjectFrom('int', Add((ProjectTo('int', l), ProjectTo('int', r))))
+		return letify(left, lambda l: letify(right, lambda r: results(l, r)))
+	elif isinstance(left, List) or isinstance(left, Dict) or isinstance(right, List) or isinstance(right, Dict):
+		def result(l, r):
+			return InjectFrom('big', CallFunc(Name('add'), [ProjectTo('big', l, ProjectTo('big', r))]))
+		return letify(left, lambda l: letify(right, lambda r: results(l, r)))
+
+	
+#TYPE SPECIALIZATION CODE!!!!!!!!!!!!!!!!
+
+
         def result(l, r):
             return IfExp(Compare(GetTag(l), [('==', Const(tag['int']))]),
                          InjectFrom('int', Add((ProjectTo('int', l), \
@@ -112,6 +160,41 @@ class ExplicateVisitor(Visitor):
             return InjectFrom('bool', Compare(left, [('is', right)]))
         else:
             op2fun = {'==':'equal', '!=':'not_equal'}
+		
+#type specialization!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	    if isinstance(left, Name) and left.name != 'True' and left.name != 'False':
+		typ = types[left.name]
+		if typ == 'int' or typ == 'bool':
+			def result(l, r):
+				return InjectFrom('bool', Compare(ProjectTo('int', l), [(op, ProjectTo('int', r))]))
+			return letify(left, lambda l: letify(right, lambda r: result(l, r)))
+		elif typ == 'big':
+			def result(l, r):
+				return InjectFrom('bool', CallFunc(Name(op2fun[op]), [ProjectTo('big', l), ProjectTo('big', r)]))
+			return letify(left, lambda l: letify(right, lambda r: result(l, r)))
+	    elif isinstance(right, Name) and right.name != 'True' and right.name != 'False':
+		typ = types[right.name]
+		if typ == 'int' or typ == 'bool':
+			def result(l, r):
+				return InjectFrom('bool', Compare(ProjectTo('int', l), [(op, ProjectTo('int', r))]))
+			return letify(left, lambda l: letify(right, lambda r: result(l, r)))
+		elif typ == 'big':
+			def result(l, r):
+				return InjectFrom('bool', CallFunc(Name(op2fun[op]), [ProjectTo('big', l), ProjectTo('big', r)]))
+			return letify(left, lambda l: letify(right, lambda r: result(l, r)))
+	    elif isinstance(left, Const) or isinstance(left, Name) or isinstance(right, Const) or isinstance(right, Name): #const or true/false
+		def result(l, r):
+			return InjectFrom('bool', Compare(ProjectTo('int', l), [(op, ProjectTo('int', r))]))
+		return letify(left, lambda l: letify(right, lambda r: result(l, r)))
+	    elif isinstance(left, List) or isinstance(left, Dict) or isinstance(right, List) or isinstance(right, Dict):
+		def result(l, r):
+			return InjectFrom('boo', CallFunc(Name(op2fun[op]), [ProjectTo('big', l), ProjectTo('big', r)]))
+		return letify(left, lambda l: letify(right, lambda r: result(l, r)))
+
+#type specialization!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
             def result(l, r):
                 return IfExp(Compare(GetTag(l), [('==', Const(tag['int']))]),
                                  InjectFrom('bool', Compare(ProjectTo('int', l), \

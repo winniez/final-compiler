@@ -2,7 +2,7 @@ from vis import Visitor
 from compiler.ast import *
 from explicit import *
 from compiler_utilities import *
-#from find_locals import FindLocalsVisitor
+from find_locals import FindLocalsVisitor
 from phi import *
 
 types = {}
@@ -69,18 +69,30 @@ class TypeAnalysisVisitor(Visitor):
 		types[p.var] = 'bottom'
 	
 	test = self.dispatch(n.test)
-        body = self.dispatch(n.body)
 
-	for p in n.phis:
-		if types[p.var1] == 'bottom':
-			types[p.var] = types[p.var2]
-		elif types[p.var2] == 'bottom':
-			types[p.var] = types[p.var1]
-		elif types[p.var1] == types[p.var2]:
-			types[p.var] = types[p.var1]
-		else:
-			types[p.var] = 'top'
+	#iterative type analysis!
+	new_dict = {}
+	old_dict = {}
+	local_vars = FindLocalsVisitor().preorder(n.body)
+	for l in local_vars:
+		new_dict[l] = 'bottom'
 
+	while (old_dict != new_dict):
+        	body = self.dispatch(n.body)
+	
+		for p in n.phis:
+			if types[p.var1] == 'bottom':
+				types[p.var] = types[p.var2]
+			elif types[p.var2] == 'bottom':
+				types[p.var] = types[p.var1]
+			elif types[p.var1] == types[p.var2]:
+				types[p.var] = types[p.var1]
+			else:
+				types[p.var] = 'top'
+		old_dict = new_dict
+		new_dict = {}
+		for l in local_vars:
+			new_dict[l] = types[l]
 
         return While(test, body, n.else_, n.phis)
 

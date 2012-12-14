@@ -24,7 +24,9 @@ from convert_from_ssa import RemoveSSAVisitor
 from type_analysis import TypeAnalysisVisitor
 from generate_x86_3 import string_constants #need this to put strings at top of file!
 from os.path import splitext
-
+from findcriticals import findCriticals
+from findalllives import findAlllives
+from burythedead import burydead
 
 #This is Siek's reference compiler + my own additions for Ifs, Whiles's, and Classes
 #My Register Allocater was way to broken and I was unable to get the last two 
@@ -85,11 +87,19 @@ try:
 	print 'finished converting to SSA'
 	print ast
 	print 'starting type analysis'
+	input()
     (ast, types) = TypeAnalysisVisitor().preorder(ast)
     if debug:
 	print 'finished type analysis'
 	print ast
 	print types
+
+	(alllive,Dependants,calledFunctions,calledClasses)=findCriticals(ast,'Parse')
+        finallive=findAlllives(ast,alllive,Dependants,calledFunctions,calledClasses)				
+	ast = burydead(ast,finallive)		
+        print 'after dead'
+	print ast
+        input()
 	print 'starting to explicate'
     ast = ExplicateVisitor2().preorder(ast)
     if debug:
