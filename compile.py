@@ -27,6 +27,8 @@ from os.path import splitext
 from findcriticals import findCriticals
 from findalllives import findAlllives
 from burythedead import burydead
+from constant_propagation import ConstantPropagationVisitor
+from constant_folding import ConstantFoldingVisitor
 
 #This is Siek's reference compiler + my own additions for Ifs, Whiles's, and Classes
 #My Register Allocater was way to broken and I was unable to get the last two 
@@ -86,21 +88,36 @@ try:
     if debug:
 	print 'finished converting to SSA'
 	print ast
+	print 'starting to constant propogate'
+
+    ast = ConstantPropagationVisitor().preorder(ast)
+    if debug:
+	print 'finished constant propagation'
+	print ast
+	print 'start constant folding'
+    	ast = ConstantFoldingVisitor().preorder(ast)
+        ast = ConstantPropagationVisitor().preorder(ast)
+	ast = ConstantFoldingVisitor().preorder(ast)
+    if debug:
+	print 'finished constant folding'
+	print ast
 	print 'starting type analysis'
-	input()
+    	print ast
     (ast, types) = TypeAnalysisVisitor().preorder(ast)
     if debug:
 	print 'finished type analysis'
 	print ast
 	print types
+	print 'starting dead code elimination'
 
 	(alllive,Dependants,calledFunctions,calledClasses)=findCriticals(ast,'Parse')
         finallive=findAlllives(ast,alllive,Dependants,calledFunctions,calledClasses)				
+    if debug:
+	print 'finished dead code elimination'
 	ast = burydead(ast,finallive)		
-        print 'after dead'
 	print ast
-        input()
 	print 'starting to explicate'
+
     ast = ExplicateVisitor2().preorder(ast)
     if debug:
         print 'finished explicating'
