@@ -141,8 +141,8 @@ class ConstFoldingVisitor(Visitor):
         return Return(self.dispatch(n.value))
 
     def visitIf(self, n):
-        test = self.dispatch(n.test[0][0])
-        then = self.dispatch(n.test[0][1])
+        test = self.dispatch(n.tests[0][0])
+        then = self.dispatch(n.tests[0][1])
         else_ = self.dispatch(n.else_)
         return If([(test,then)],else_,n.phis)
 
@@ -153,7 +153,7 @@ class ConstFoldingVisitor(Visitor):
         return IfExp(test, then, else_)
 
     def visitWhile(self, n):
-  test = self.dispatch(n.test)
+    test = self.dispatch(n.test)
         body = self.dispatch(n.body)
         return While(test, body, n.else_, n.phis)
         
