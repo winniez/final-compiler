@@ -27,8 +27,11 @@ from os.path import splitext
 from findcriticals import findCriticals
 from findalllives import findAlllives
 from burythedead import burydead
-from constant_propagation import ConstantPropagationVisitor
-from constant_folding import ConstantFoldingVisitor
+from constant_vis import ConstantVisitor
+from constant_fold import ConstFoldingVisitor
+
+#from constant_propagation import ConstantPropagationVisitor
+#from constant_folding import ConstantFoldingVisitor
 
 #This is Siek's reference compiler + my own additions for Ifs, Whiles's, and Classes
 #My Register Allocater was way to broken and I was unable to get the last two 
@@ -59,7 +62,7 @@ from constant_folding import ConstantFoldingVisitor
 #	-still have a problem when a class is declared in a class...solved this by declassfiny assignments in class Node!
 #-call funs should be interpreted correctly now...copied psuedo code from pdf!
 
-
+loops = 2 #amount of times to loop through constant propogation/folding
 debug = True
 
 try:
@@ -90,19 +93,22 @@ try:
 	print ast
 	print 'starting to constant propogate'
 
-    ast = ConstantPropagationVisitor().preorder(ast)
-    if debug:
-	print 'finished constant propagation'
-	print ast
-	print 'start constant folding'
-    	ast = ConstantFoldingVisitor().preorder(ast)
-        ast = ConstantPropagationVisitor().preorder(ast)
-	ast = ConstantFoldingVisitor().preorder(ast)
-    if debug:
-	print 'finished constant folding'
-	print ast
-	print 'starting type analysis'
-    	print ast
+   
+    i = 0
+    while(i < loops):
+        ast = ConstantVisitor().preorder(ast)
+   	#ast = ConstantPropagationVisitor().preorder(ast)
+    	if debug:
+		print 'finished constant propagation'
+		print ast
+                print 'start constant folding'
+    	ast = ConstFoldingVisitor().preorder(ast)
+    	if debug:
+		print 'finished constant folding'
+		print ast
+        i = i + 1
+    print 'starting type analysis'
+    print ast 
     (ast, types) = TypeAnalysisVisitor().preorder(ast)
     if debug:
 	print 'finished type analysis'
